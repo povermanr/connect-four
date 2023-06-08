@@ -1,0 +1,102 @@
+body {
+  background-image: url('https://img.freepik.com/free-vector/pink-neon-background_53876-91656.jpg?w=1800&t=st=1686189983~exp=1686190583~hmac=eced8f4821ce5753eb698937248af645ba4a0b378537735e19459904b7ff5ac0');
+  /* background-image: url('https://img.freepik.com/free-vector/neon-geometric-border-dark-purple-background_53876-99066.jpg?w=1800&t=st=1686190633~exp=1686191233~hmac=be6708abbde5e5d00c602429ecb389803a2f6b8e7a497ce26ff73f60297f633e'); */
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center;
+}
+
+h1 {
+  font-size: 5rem;
+  font-family: 'Bagel Fat One', cursive;
+  color: #8ba8ff;
+  text-align: center;
+  margin-top: 50px;
+}
+
+#game {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+
+#board td {
+  width: 50px;
+  height: 50px;
+  border: 2.5px solid #8ba8ff;
+  position: relative;
+}
+
+.piece {
+  margin: 5px;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  position: absolute; /* position the game piece */
+  transition: top 1s; /* transition for smooth animation */
+}
+
+@keyframes moveDownPlayer1 {
+  from {
+    top: -300px; /* Initial position above the game board */
+  }
+  to {
+    top: 0; /* Final position in the game board */
+  }
+}
+
+@keyframes moveDownPlayer2 {
+  from {
+    top: -300px;
+  }
+  to {
+    top: 0;
+  }
+}
+
+.player1 {
+  background-color: #75eb60;
+  animation: moveDownPlayer1 1.5s forwards; /* Trigger animation for player 1 */
+}
+
+.player2 {
+  background-color: #EC26E4;
+  animation: moveDownPlayer2 1.5s forwards; /* Trigger animation for player 2 */
+}
+
+#column-top td {
+  border: dashed 2.25px lightslategray;
+}
+
+#column-top td:hover {
+  background-color: #3e00e8;
+  border-radius: 50%;
+}
+
+#win-alert {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+#win-alert-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 200px;
+  background-color: #1F033C;
+  color: #EC26E4;
+  font-family: 'Bagel Fat One', cursive;
+  text-align: center;
+  font-size: 20px;
+}
