@@ -3,6 +3,7 @@ const HEIGHT = 6;
 
 let currPlayer = 1;
 let board = [];
+let animating = false;
 
 function makeBoard() {
   board = [];
@@ -56,25 +57,48 @@ const placeInTable = (y, x, currPlayer) => {
   const piece = document.createElement('div');
   piece.className = `piece player${currPlayer}`;
 
-   if (currPlayer === 1) {
+  if (currPlayer === 1) {
     piece.classList.add('player1');
   } else if (currPlayer === 2) {
     piece.classList.add('player2');
   }
-  
-  const cell = document.getElementById(`${y}-${x}`);
-  cell.appendChild(piece);
+
+  const columnTopCell = document.getElementById(x.toString()); // Get the column top cell
+  const columnTopRect = columnTopCell.getBoundingClientRect(); // Get the bounding rectangle of the column top cell
+
+  const cell = document.getElementById(`${y}-${x}`); // Get the target cell
+  const cellRect = cell.getBoundingClientRect(); // Get the bounding rectangle of the target cell
+
+  const yDiff = cellRect.top - columnTopRect.bottom; // Calculate the vertical distance between the column top and the target cell
+
+  animating = true;
+
+  let animation = piece.animate(
+    [
+      { transform: `translateY(${-yDiff}px)`, offset: 0 }, // Start from above the column top
+      { transform: 'translateY(0px)', offset: 0.8 }, // Move down to the target cell
+      { transform: 'translateY(0px)', offset: 0.95 } // Move to the final position
+    ],
+    {
+      duration: 1000,
+      easing: 'linear',
+      iterations: 1
+    }
+  );
+
+  animation.addEventListener('finish', () => {
+    if (checkForWin()) {
+      endGame(currPlayer);
+    } else if (checkForTie()) {
+      noWinner('Tie');
+    } else {
+      currPlayer = currPlayer === 1 ? 2 : 1;
+    }
+  });
+
+  cell.appendChild(piece); // Append the piece to the target cell
   board[y][x] = currPlayer;
-
 };
-
-// const endGame = (winner) => {
-//   alert(`Player ${winner} Wins!`);
-// };
-
-// const noWinner = (tied) => {
-//   alert (`No moves left...${tied}`)
-// }
 
 const endGame = (winner) => {
   const winAlert = document.getElementById('win-alert');
@@ -101,7 +125,7 @@ const checkForTie = () => {
       return false; //at least 1 cell is still empty
     }
   }
-  return true; //all cells are filled, its a tie
+  return true; //all cells are filled, it's a tie
 };
 
 const handleClick = (evt) => {
@@ -112,7 +136,7 @@ const handleClick = (evt) => {
     return;
   }
 
-  placeInTable(y, x, currPlayer)
+  placeInTable(y, x, currPlayer);
 
   if (checkForWin()) {
     return endGame(currPlayer);
@@ -154,5 +178,14 @@ const checkForWin = () => {
   }
   return false;
 };
+
+const newGameBtn = document.getElementById('new-game-btn');
+newGameBtn.addEventListener('click', () => {
+  const htmlBoard = document.getElementById('board');
+  htmlBoard.innerHTML = '';
+  makeBoard();
+  const winAlert = document.getElementById('win-alert');
+  winAlert.style.display = 'none';
+});
 
 makeBoard();

@@ -1,6 +1,5 @@
 body {
   background-image: url('https://img.freepik.com/free-vector/pink-neon-background_53876-91656.jpg?w=1800&t=st=1686189983~exp=1686190583~hmac=eced8f4821ce5753eb698937248af645ba4a0b378537735e19459904b7ff5ac0');
-  /* background-image: url('https://img.freepik.com/free-vector/neon-geometric-border-dark-purple-background_53876-99066.jpg?w=1800&t=st=1686190633~exp=1686191233~hmac=be6708abbde5e5d00c602429ecb389803a2f6b8e7a497ce26ff73f60297f633e'); */
   background-repeat: no-repeat;
   background-size: auto;
   background-position: center;
@@ -31,16 +30,17 @@ h1 {
 
 .piece {
   margin: 5px;
-  width: 80%;
-  height: 80%;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  position: absolute; /* position the game piece */
-  transition: top 1s; /* transition for smooth animation */
+  position: absolute;
+  left: 0;
+  transition: top 0.4s linear;
 }
 
 @keyframes moveDownPlayer1 {
   from {
-    top: -300px; /* Initial position above the game board */
+    top: -200px; /* Initial position above the game board */
   }
   to {
     top: 0; /* Final position in the game board */
@@ -49,7 +49,7 @@ h1 {
 
 @keyframes moveDownPlayer2 {
   from {
-    top: -300px;
+    top: -200px;
   }
   to {
     top: 0;
@@ -58,12 +58,10 @@ h1 {
 
 .player1 {
   background-color: #75eb60;
-  animation: moveDownPlayer1 1.5s forwards; /* Trigger animation for player 1 */
 }
 
 .player2 {
   background-color: #EC26E4;
-  animation: moveDownPlayer2 1.5s forwards; /* Trigger animation for player 2 */
 }
 
 #column-top td {
@@ -100,6 +98,22 @@ h1 {
   text-align: center;
   font-size: 20px;
 }
+
+#new-game-btn {
+  margin-top: 20px;
+  background-color: #EC26E4;
+  color: #1F033C;
+  font-family: 'Bagel Fat One', cursive;
+  font-size: 1.5rem;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
 @media (max-width: 768px) {
   #board td {
     width: 40px;
